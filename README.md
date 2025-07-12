@@ -25,14 +25,31 @@ A data mining-driven analysis of Airbnb listings to uncover pricing drivers and 
 7. [Model Explainability](#-model-explainability)  
 8. [Clustering & Segmentation](#-clustering--segmentation)  
 9. [Key Takeaways](#-key-takeaways)  
-10. [Next Steps](#-next-steps)  
-11. [Author](#-author)
 
 ---
 
 ## 📌 Project Overview
 
 This project analyzes the **pricing dynamics of Airbnb listings** in a major metropolitan area using statistical inference, explainable machine learning, and segmentation techniques. The goal is to support **consumer-tier segmentation** and **conditional pricing strategies** — not to build black-box models, but to derive actionable insights for stakeholders like hosts, travelers, and platform managers.
+
+## Feature Summary 
+
+| Feature               | Description                                                          |
+| --------------------- | -------------------------------------------------------------------- |
+| `property_type`       | Type of listing (e.g., Luxury Home, Standard Apartment, Tiny Studio) |
+| `season`              | Booking season (Off, Shoulder, Peak)                                 |
+| `number_of_bedrooms`  | Total number of bedrooms in the listing                              |
+| `guest_capacity`      | Maximum number of guests the listing can accommodate                 |
+| `amenities_count`     | Number of amenities offered in the listing                           |
+| `minimum_stay_nights` | Minimum number of nights required to book                            |
+| `host_response_time`  | Typical response speed of the host (e.g., within an hour, same day)  |
+| `years_as_host`       | Duration (in years) the host has been active                         |
+| `cancellation_policy` | Type of cancellation policy (e.g., Flexible, Moderate)               |
+| `review_score`        | Average guest review rating (1–5 scale)                              |
+| `location_score`      | Neighborhood desirability (scaled score)                             |
+| `cleaning_fee`        | One-time cleaning fee charged to guests                              |
+| `nightly_rate`        | Price per night (target variable — log-transformed for modeling)     |
+
 
 ## 🎯 Business Objectives
 
@@ -60,13 +77,14 @@ This project analyzes the **pricing dynamics of Airbnb listings** in a major met
 
 ### Univariate Insights
 
-- Nightly rate and cleaning fee are **right-skewed**.
+- Nightly rate and cleaning fee are **right-skewed**. 
 - Right-skewed distributions justify log transformation for modeling
   <p align="center">
   <img src="https://github.com/user-attachments/assets/8751fc42-977f-49ba-83e5-13975a862880" alt="Patient Selection Flowchart" width="500"/>
   <br>
   <em>Figure 1. Distribution of Nightly Rate and Cleaning Fee </em>
-</p
+</p  
+
 - Most listings:
   - Are 1–2 bedroom apartments
   - Charge <$300 per night
@@ -75,15 +93,25 @@ This project analyzes the **pricing dynamics of Airbnb listings** in a major met
 ### Bivariate/Multivariate Insights
 
 - **Guest capacity × Season**: Higher capacity drives up price, especially in peak season.
+  <img width="981" height="591" alt="Screenshot 2025-07-12 at 11 18 52 PM" src="https://github.com/user-attachments/assets/b15b2780-ca74-40be-b8e6-150e21e3454d" />
+
 - **Property type** matters: Luxury homes command significantly higher prices.
+  <img width="918" height="699" alt="Screenshot 2025-07-12 at 11 20 49 PM" src="https://github.com/user-attachments/assets/cffe0fcc-d221-4f6e-b608-2039e38fe084" />
+
 - **Review and location scores**: Have weaker individual impact but amplify with seasonal or spatial context.
 - Detected **non-linear trends** — motivating the use of both linear and tree-based models.
+-  Figure 2 shows multicollinearity between `bedrooms`, `guest_capacity`, and `cleaning_fee`.
+  <p align="center">
+  <img src="https://github.com/user-attachments/assets/38b1e553-357d-4004-bf56-e911c56cd2eb" alt="Patient Selection Flowchart" width="500"/>
+  <br>
+  <em>Figure 2. Correlation matrix of numerical features </em>
+</p  
 
 ## 🧪 Statistical Testing
 
 Key questions and findings (ANOVA, interaction effects):
 
-1. **Property type affects nightly rate** ✅  
+1. **Property type affects nightly rate** ✅
 2. **Guest capacity × Season interaction** ✅  
 3. **Bedrooms × Property type interaction** ✅  
 4. **Seasonality matters** ✅  
@@ -116,6 +144,9 @@ Key questions and findings (ANOVA, interaction effects):
 - Easy-to-follow pricing rules:
   - If `season = peak` and `bedrooms > 2.5`, price ≈ $278–$350
   - If `bedrooms ≤ 2.5` and off-season, price ≈ $117
+<p align="center">
+<img width="500" height="500" alt="dt" src="https://github.com/user-attachments/assets/daee8ed6-7da8-4f41-869a-a56988c047f6" />
+</p>
 
 ## 🔍 Model Explainability
 
@@ -125,12 +156,21 @@ Key questions and findings (ANOVA, interaction effects):
 - 2D PDP:
   - **Bedrooms × Location**: Amplifies pricing in premium areas
   - **Season × Bedrooms**: Bigger impact in peak travel times
+<p align="center">
+<img width="1072" height="607" alt="Screenshot 2025-07-12 at 11 28 57 PM" src="https://github.com/user-attachments/assets/9c19f6a8-87fa-4830-a985-fd4a59d3982b" />
+</p>
 
 ### SHAP Values
-
-- Confirmed: `number_of_bedrooms`, `season_peak`, and `location_score` are the most influential
 - SHAP dependence plot:
-  - Sharp increase in price when `location_score > 90`
+<img width="816" height="715" alt="Screenshot 2025-07-12 at 11 30 46 PM" src="https://github.com/user-attachments/assets/05d4d530-2d21-44a8-b9b3-3c307a23107a" />
+- Confirmed: `number_of_bedrooms`, `season_peak`, and `location_score` are the most influential
+  
+- SHAP dependence plot:
+<p align="center"> 
+<img width="326" height="230" alt="shapdependence" src="https://github.com/user-attachments/assets/2d586b6b-7437-4f5a-9b9e-3fcf2f8171c2" />
+</p>
+
+ - Sharp increase in price when `location_score > 90`
 
 ## 📊 Clustering & Segmentation
 
@@ -139,8 +179,15 @@ Key questions and findings (ANOVA, interaction effects):
 - Features: `nightly_rate`, `bedrooms`, `guest_capacity`, `amenities`, `location_score`, `review_score`
 - Applied **KMeans** (k = 3 from Elbow Method) after standardization
 - Visualized clusters in 2D using PCA
+  <p align="center"> 
+  <img width="756" height="605" alt="Screenshot 2025-07-12 at 11 38 35 PM" src="https://github.com/user-attachments/assets/488a340e-c65c-49c0-aa36-ef4fa3f09700" />
+  </p>
+
 
 ### 🔹 Segments
+<img width="468" height="374" alt="kdeplots" src="https://github.com/user-attachments/assets/dce1e944-13a5-440c-9c74-961e255356c5" />
+
+- Analyzed the 3 clusters using KDE plots
 
 | Cluster | Description | Characteristics                                 |
 |---------|-------------|--------------------------------------------------|
