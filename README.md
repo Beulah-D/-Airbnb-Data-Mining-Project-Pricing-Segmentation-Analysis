@@ -80,7 +80,7 @@ This project analyzes the **pricing dynamics of Airbnb listings** in a major met
 - Nightly rate and cleaning fee are **right-skewed**. 
 - Right-skewed distributions justify log transformation for modeling
   <p align="center">
-  <img src="https://github.com/user-attachments/assets/8751fc42-977f-49ba-83e5-13975a862880" alt="Patient Selection Flowchart" width="500"/>
+  <img src="https://github.com/user-attachments/assets/8751fc42-977f-49ba-83e5-13975a862880" alt="Patient Selection Flowchart" width="600"/>
   <br>
   <em>Figure 1. Distribution of Nightly Rate and Cleaning Fee </em>
 </p  
@@ -93,11 +93,19 @@ This project analyzes the **pricing dynamics of Airbnb listings** in a major met
 ### Bivariate/Multivariate Insights
 
 - **Guest capacity × Season**: Higher capacity drives up price, especially in peak season.
-  <img width="981" height="591" alt="Screenshot 2025-07-12 at 11 18 52 PM" src="https://github.com/user-attachments/assets/b15b2780-ca74-40be-b8e6-150e21e3454d" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b15b2780-ca74-40be-b8e6-150e21e3454d" width="500"/>
+  <br>
+  <em>Figure 1. Distribution of Nightly Rate and Cleaning Fee </em>
+</p 
 
 - **Property type** matters: Luxury homes command significantly higher prices.
-  <img width="918" height="699" alt="Screenshot 2025-07-12 at 11 20 49 PM" src="https://github.com/user-attachments/assets/cffe0fcc-d221-4f6e-b608-2039e38fe084" />
-
+  <p align="center">
+  <img src="https://github.com/user-attachments/assets/cffe0fcc-d221-4f6e-b608-2039e38fe084" width="500"/>
+  <br>
+  <em>Figure 1. Distribution of Nightly Rate and Cleaning Fee </em>
+</p 
+  
 - **Review and location scores**: Have weaker individual impact but amplify with seasonal or spatial context.
 - Detected **non-linear trends** — motivating the use of both linear and tree-based models.
 -  Figure 2 shows multicollinearity between `bedrooms`, `guest_capacity`, and `cleaning_fee`.
@@ -144,9 +152,11 @@ Key questions and findings (ANOVA, interaction effects):
 - Easy-to-follow pricing rules:
   - If `season = peak` and `bedrooms > 2.5`, price ≈ $278–$350
   - If `bedrooms ≤ 2.5` and off-season, price ≈ $117
-<p align="center">
-<img width="500" height="500" alt="dt" src="https://github.com/user-attachments/assets/daee8ed6-7da8-4f41-869a-a56988c047f6" />
-</p>
+  <p align="center">
+  <img src="https://github.com/user-attachments/assets/daee8ed6-7da8-4f41-869a-a56988c047f6" alt="Patient Selection Flowchart" width="1000"/>
+  <br>
+  <em>Figure 2. Correlation matrix of numerical features </em>
+</p  
 
 ## 🔍 Model Explainability
 
