@@ -23,7 +23,7 @@ A data mining-driven analysis of Airbnb listings to uncover pricing drivers and 
 5. [Exploratory Data Analysis](#-exploratory-data-analysis)  
 6. [Statistical Testing](#statistical-testing)   
 7. [Predictive Modeling](#-predictive-modeling)  
-8. [Model Explainability](#model-explainability) 
+8. [Model Explainability](#-model-explainability) 
 9. [Clustering & Segmentation](#-clustering--segmentation)  
 10. [Key Takeaways](#-key-takeaways)  
 
@@ -114,9 +114,9 @@ This project analyzes the **pricing dynamics of Airbnb listings** in a major met
   <img src="https://github.com/user-attachments/assets/38b1e553-357d-4004-bf56-e911c56cd2eb" alt="Patient Selection Flowchart" width="500"/>
   <br>
   <em>Figure 4. Correlation matrix of numerical features </em>
-</p  
+  </p>  
 
-## Statistical Testing
+## 🧪Statistical Testing
 
 Key questions and findings (ANOVA, interaction effects):
 
@@ -157,7 +157,7 @@ Key questions and findings (ANOVA, interaction effects):
   <img src="https://github.com/user-attachments/assets/f61a8215-f510-41d4-9fd0-1830ca138305" alt="Patient Selection Flowchart" width="1200"/>
   <br>
   <em>Figure 5. Decision Tree </em>
-</p  
+  </p  
 
 ## 🔍 Model Explainability
 
